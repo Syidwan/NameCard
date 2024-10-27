@@ -26,11 +26,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BusinessCardTheme {
+                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    NameCard()
+                    BusinessCard()
                 }
             }
         }
@@ -39,93 +40,76 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun NameCard() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.DarkGray)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            val image = painterResource(id = R.drawable.android_logo)
-            Image(
-                painter = image,
-                contentDescription = null,
-                modifier = Modifier
-                    .height(120.dp)
-                    .width(150.dp)
-            )
+fun BusinessCard() {
+Column(
+    modifier = Modifier
+        .fillMaxHeight()
+        .fillMaxWidth()
+        .background(color = Color.DarkGray)
+       ,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+){
+   val image = painterResource(id = R.drawable.android_logo)
+    Image(painter = image, contentDescription = null, modifier = Modifier
+        .height(120.dp)
+        .width(150.dp))
+    Text(text = stringResource(R.string.name_surname),color = Color.White)
+    Text(text = stringResource(R.string.business),color = Color(0xFF3ddc84))
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(R.string.name_surname),
-                color = Color.White
-            )
-            Text(
-                text = stringResource(R.string.business),
-                color = Color(0xFF3ddc84)
-            )
-        }
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 32.dp) 
-                .align(Alignment.BottomCenter),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            ContactRow(
-                iconRes = R.drawable.ic_baseline_local_phone_24,
-                text = stringResource(R.string.phone_number)
-            )
-            ContactRow(
-                iconRes = R.drawable.ic_baseline_email_24,
-                text = stringResource(R.string.email_text)
-            )
-            ContactRow(
-                iconRes = R.drawable.ic_baseline_share_24,
-                text = stringResource(R.string.share_text)
-            )
-        }
-    }
 }
+  Column(
+      modifier = Modifier
 
-@Composable
-fun ContactRow(iconRes: Int, text: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 40.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center // Menjajarkan konten di tengah secara horizontal
-    ) {
-        Icon(
-            painter = painterResource(id = iconRes),
-            contentDescription = null,
-            tint = Color(0xFF3ddc84),
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = text,
-            color = Color.White
-        )
-    }
+          .fillMaxHeight()
+          .fillMaxWidth()
+          .padding(bottom = 30.dp)
+
+      ,
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Bottom
+
+  ){
+      Row(
+          modifier = Modifier
+
+              .fillMaxWidth().padding(start = 40.dp),
+
+      ){
+          val icon = painterResource(id = R.drawable.ic_baseline_local_phone_24)
+          Icon(painter = icon, contentDescription = null, modifier = Modifier.padding(start = 60.dp), Color(0xFF3ddc84)
+          )
+          Text(text = stringResource(R.string.phone_number), modifier = Modifier.padding(start = 25.dp),color = Color.White)
+          
+      }
+      Row(
+          modifier = Modifier
+
+              .fillMaxWidth().padding(start = 40.dp),
+      ){
+          val icon2 = painterResource(id = R.drawable.ic_baseline_email_24)
+          Icon(painter = icon2, contentDescription = null,  modifier = Modifier.padding(start = 60.dp),Color(0xFF3ddc84))
+          Text(text = stringResource(R.string.email_text), modifier = Modifier.padding(start = 25.dp),color = Color.White)
+      }
+      Row(
+          modifier = Modifier
+
+              .fillMaxWidth().padding(start = 40.dp),
+      ){
+        val icon3 = painterResource(id = R.drawable.ic_baseline_share_24)
+          Icon(painter = icon3, contentDescription = null, modifier = Modifier.padding(start = 60.dp),Color(0xFF3ddc84) )
+          Text(text = stringResource(R.string.share_text), modifier = Modifier.padding(start = 25.dp),color = Color.White)
+      }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun NameCardPreview() {
+fun BusinessCardPreview() {
     BusinessCardTheme {
-        Surface {
-            NameCard()
+        Surface{
+            BusinessCard()
         }
+
     }
 }
